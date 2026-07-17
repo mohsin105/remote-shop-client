@@ -3,17 +3,11 @@ import apiFetch from '@/lib/apiFetch';
 import React, { useEffect, useState } from 'react'
 import authService from '../_services/authService';
 
-export default function useAuth() {
-    const [user, setUser] = useState(null);
+export default function useAuth(initialUser) {
+    const [user, setUser] = useState(initialUser);
     const [errorMessage, setErrorMessage] = useState("");
     const {registerUserAPI, loginUserAPI, getCurrentUserAPI} = authService();
 
-    // const getToken = () =>{
-    //     const token = localStorage.getItem("authTokens");
-    //     return token? JSON.parse(token) : null;
-    // };
-
-    // const [authToken, setAuthToken] = useState(getToken());
 
     const registerUser = async(payload) => {
         await registerUserAPI(payload);
@@ -22,10 +16,6 @@ export default function useAuth() {
     const logInUser = async(payload) =>{
         try {
             console.log("jsata");
-            // const formData = new URLSearchParams();
-            // formData.append("username",payload.username);
-            // formData.append("password", payload.password)
-            // const response = await loginUserAPI(formData);
             const response = await loginUserAPI(payload);
             console.log(response);
 
@@ -35,16 +25,6 @@ export default function useAuth() {
             if(response.status === 200)
             {
                 await getCurrentUser();
-                // const profileRes = await fetch("http://localhost:8000/profile", {
-                //     credentials: "include"
-                // });
-                // const profileResult = await profileRes.json();
-                // console.log("Profile result: -> ",profileResult);
-                // if(profileRes.ok){
-                //     console.log("Profile result resolved successfully. ")
-                //     setUser(profileResult);
-                // }
-                // return profileResult;
                 return {"success": true, "message":result.message}
             }
         } catch (error) {
@@ -55,12 +35,10 @@ export default function useAuth() {
 
     const logOutUser = async() =>{
         console.log("jsata. clicking on log out button");
-        // localStorage.removeItem("authTokens");
         const response = await apiFetch("logout",{
             method: "POST"
         })
         setUser(null);
-        // setAuthToken(null);
         console.log("Logout Status: ", response.ok);
     }
 
@@ -76,14 +54,9 @@ export default function useAuth() {
         }
     };
 
-    useEffect(()=>{
-        getCurrentUser();
-        /*As we are no longer using authToken from localStoage So the code below is no longer needed*/
-        // if(authToken)
-        // {
-        // }
-        // else setUser(null);
-    },[]);
+    // useEffect(()=>{
+    //     getCurrentUser();
+    // },[]);
 
     const updateUserProfile = async(payload) => {
         try {
