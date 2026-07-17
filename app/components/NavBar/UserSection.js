@@ -5,6 +5,7 @@ import React from 'react'
 
 export default function UserSection() {
     const {user, logOutUser} = useAuthContext();
+    // console.log(user);
   return (
     <div className='flex gap-4'>
         <div className=''>

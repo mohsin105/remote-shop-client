@@ -8,12 +8,12 @@ export default function useAuth() {
     const [errorMessage, setErrorMessage] = useState("");
     const {registerUserAPI, loginUserAPI, getCurrentUserAPI} = authService();
 
-    const getToken = () =>{
-        const token = localStorage.getItem("authTokens");
-        return token? JSON.parse(token) : null;
-    };
+    // const getToken = () =>{
+    //     const token = localStorage.getItem("authTokens");
+    //     return token? JSON.parse(token) : null;
+    // };
 
-    const [authToken, setAuthToken] = useState(getToken());
+    // const [authToken, setAuthToken] = useState(getToken());
 
     const registerUser = async(payload) => {
         await registerUserAPI(payload);
@@ -22,19 +22,30 @@ export default function useAuth() {
     const logInUser = async(payload) =>{
         try {
             console.log("jsata");
-            const formData = new URLSearchParams();
-            formData.append("username",payload.username);
-            formData.append("password", payload.password)
-            const response = await loginUserAPI(formData);
-            // console.log(response);
-            const result = await response.json(); //the actual token. 
-            // console.log(result);
-            // console.log(response.status);
+            // const formData = new URLSearchParams();
+            // formData.append("username",payload.username);
+            // formData.append("password", payload.password)
+            // const response = await loginUserAPI(formData);
+            const response = await loginUserAPI(payload);
+            console.log(response);
+
+            const result = await response.json(); //the actual response payload. 
+            console.log(result.message);
+            console.log(response.status);
             if(response.status === 200)
             {
-                localStorage.setItem("authTokens", JSON.stringify(result.access_token));
                 await getCurrentUser();
-                return {"success": true, "message":"Login Successfull"}
+                // const profileRes = await fetch("http://localhost:8000/profile", {
+                //     credentials: "include"
+                // });
+                // const profileResult = await profileRes.json();
+                // console.log("Profile result: -> ",profileResult);
+                // if(profileRes.ok){
+                //     console.log("Profile result resolved successfully. ")
+                //     setUser(profileResult);
+                // }
+                // return profileResult;
+                return {"success": true, "message":result.message}
             }
         } catch (error) {
             console.log(error);
@@ -44,28 +55,35 @@ export default function useAuth() {
 
     const logOutUser = async() =>{
         console.log("jsata. clicking on log out button");
-        localStorage.removeItem("authTokens");
+        // localStorage.removeItem("authTokens");
+        const response = await apiFetch("logout",{
+            method: "POST"
+        })
         setUser(null);
-        setAuthToken(null);
+        // setAuthToken(null);
+        console.log("Logout Status: ", response.ok);
     }
 
     const getCurrentUser = async() =>{
         try {
             const response = await getCurrentUserAPI();
             console.log("Response on Getting Current User: ",response);
-            setUser(response);
+            if(response.success){
+                setUser(response.message);
+            }
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(()=>{
-        if(authToken)
-        {
-            getCurrentUser();
-        }
-        else setUser(null);
-    },[authToken]);
+        getCurrentUser();
+        /*As we are no longer using authToken from localStoage So the code below is no longer needed*/
+        // if(authToken)
+        // {
+        // }
+        // else setUser(null);
+    },[]);
 
     const updateUserProfile = async(payload) => {
         try {

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import useAuth from '../_hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import apiFetch from '@/lib/apiFetch';
 
 export default function SignInForm() {
     const {register, handleSubmit, formState:{errors}} = useForm();
@@ -13,13 +14,16 @@ export default function SignInForm() {
     const onSubmit = async (data) => {
         // console.log(data);
         try {
-            // console.log("jesata");
+            console.log("jesata");
             const response = await logInUser(data);
             console.log(response);
+            const user = await apiFetch("profile");
+            console.log(user);
             if(response.success){
               console.log(response.message);
               router.replace("/products");
             }
+
         } catch (error) {
             console.log(error);
         }
