@@ -6,7 +6,7 @@ export default function CartDetailList({localCart, handleUpdateQuantity,handleRe
     <div>
         <h3>CartDetailList</h3>
         <div>
-            {localCart?.items?.map(item =>(
+            {localCart && localCart?.items?.map(item =>(
                 <div key={item.id}
                     className='grid grid-cols-6'>
                     <div>{item.id}</div>
@@ -40,7 +40,7 @@ export default function CartDetailList({localCart, handleUpdateQuantity,handleRe
         </div>
         <div className='grid grid-cols-2'>
             <div>Total Price</div>
-            <div>{localCart.total_price} Tk</div>
+            <div>{localCart?.total_price} Tk</div>
         </div>
     </div>
   )

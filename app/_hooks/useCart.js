@@ -84,10 +84,11 @@ export default function useCart(initialCart) {
             console.log("og Response",response);
             const result = await response.json();
             console.log(result);
-            // if(response.ok)
-            // {
-            //     setCart(null);
-            // }
+            if(response.ok)
+            {
+                setCart(null);
+                await createCart();
+            }
             return {"success":true, "message":"Order Created Successfully"}
         } catch (error) {
             console.log(error);
