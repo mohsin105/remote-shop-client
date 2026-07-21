@@ -21,6 +21,7 @@ export default function SignInForm() {
             console.log(user);
             if(response.success){
               console.log(response.message);
+              
               router.replace("/products");
             }
 

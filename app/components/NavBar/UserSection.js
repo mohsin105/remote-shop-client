@@ -1,11 +1,15 @@
 "use client";
 import useAuthContext from '@/app/_hooks/useAuthContext';
+import useCartContext from '@/app/_hooks/useCartContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
 export default function UserSection() {
     const {user, logOutUser} = useAuthContext();
+    const {cart} = useCartContext();
+    console.log("Users cart->", cart);
+    // console.log(cart[0].id);
     const router = useRouter();
     // console.log(user);
     const signOutUser = () => {
@@ -23,6 +27,15 @@ export default function UserSection() {
                 <div>
                     {user.email}
                 </div>
+            )}
+        </div>
+        <div>
+            {cart && (
+                <Link href="/cart">
+                    <div>
+                        View Cart
+                    </div>
+                </Link>
             )}
         </div>
         <div>

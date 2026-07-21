@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import { AuthProvider } from "./_context/AuthContext";
 // import apiFetch from "@/lib/apiFetch";
 import apiServer from "@/lib/apiServer";
+import { CartProvider } from "./_context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,14 +24,16 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const response = await apiServer("profile");
-  // console.log(response);
-  // if(response.ok){
-  //   const user = await response.json();
-  // } 
-  // else{
-  //   const user = null;
-  // }
   const user = response.ok? await response.json(): null;
+  const cartResponse = await apiServer("carts");
+  const cart = cartResponse.ok? await cartResponse.json() : null;
+  // if(cartResponse.ok)
+  // {
+  //   console.log("Cart API call successfull");
+  // }
+  // else{
+  //   console.log("Cart API call UNsuccessfull");
+  // }
   // console.log(user);
   return (
     <html
@@ -39,10 +42,12 @@ export default async function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider initialUser={user}>
-          <Navbar></Navbar>
-          <div>
-            {children}
-          </div>
+          <CartProvider initialCart={cart}>
+            <Navbar></Navbar>
+            <div>
+              {children}
+            </div>
+          </CartProvider>
         </AuthProvider>
         <Footer/>
       </body>

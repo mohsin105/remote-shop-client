@@ -45,7 +45,7 @@ export default async function page({params}) {
             </span>
           </p>
           <Suspense fallback = {<div className=''>Loading...</div>}>
-            <AddToCart stock={product.stock}/>
+            <AddToCart stock={product.stock} productId={id}/>
           </Suspense>
         </div>
       </div>

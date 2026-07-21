@@ -2,11 +2,15 @@
 import apiFetch from '@/lib/apiFetch';
 import React, { useEffect, useState } from 'react'
 import authService from '../_services/authService';
+import useCartContext from './useCartContext';
+import useCart from './useCart';
 
 export default function useAuth(initialUser) {
     const [user, setUser] = useState(initialUser);
     const [errorMessage, setErrorMessage] = useState("");
     const {registerUserAPI, loginUserAPI, getCurrentUserAPI} = authService();
+    // const {createCart} = useCartContext();
+    const {createCart} = useCart();
 
 
     const registerUser = async(payload) => {
@@ -25,6 +29,9 @@ export default function useAuth(initialUser) {
             if(response.status === 200)
             {
                 await getCurrentUser();
+                const cartResponse = await createCart();
+                console.log("Cart Response ->: ",cartResponse);
+                // const 
                 return {"success": true, "message":result.message}
             }
         } catch (error) {
