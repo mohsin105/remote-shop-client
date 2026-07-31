@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 
-export default function PaginationSection() {
+export default function PaginationSection({totalPages}) {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +18,7 @@ export default function PaginationSection() {
     
   return (
     <div className='space-x-2 '>
-      {Array.from({length:4}, (_,i) => (
+      {Array.from({length:totalPages}, (_,i) => (
         <button 
           key={i}
           onClick={()=> handlePagination(i+1)}

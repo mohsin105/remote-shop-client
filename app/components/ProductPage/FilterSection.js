@@ -24,12 +24,14 @@ export default function FilterSection({categories}) {
       setSelectedCategory(categoryValue);
       const params = new URLSearchParams(searchParams);
       params.set("category",categoryValue );
+      params.set("page", 1);
       router.push(`/products?${params.toString()}`);
     };
     const handleOrderFilter = (orderValue) =>{
       // console.log("Order=> ", orderValue);
       const params = new URLSearchParams(searchParams);
       params.set("order_by", orderValue);
+      params.set("page", 1);
       router.push(`/products?${params.toString()}`);
     };
     

@@ -22,18 +22,18 @@ export default async function page({searchParams}) {
   // const filter = params.filter ?? "";
   const products = await getAllProducts(`page=${page}&name=${searchName}&category=${cateogry}&price_lt=${price_lt}&price_gt=${price_gt}&order_by=${sort}`);
   const categories = await getAllCategories();
-  // console.log("Products => ", products)
+  // console.log("Products => ", products);
   return (
     <div>
-      <h1>This is Product List page</h1>
+      <h1 className='text-4xl font-semibold my-6 text-center'>This is Product List page</h1>
       <div className='my-4'>
         <FilterSection categories={categories}/>
       </div>
       <div>
-        <ProductGrid products={products}/>
+        <ProductGrid products={products.items}/>
       </div>
       <div className='my-4 text-center'>
-        <PaginationSection/>
+        <PaginationSection totalPages={products.total_pages}/>
       </div>
     </div>
   )
