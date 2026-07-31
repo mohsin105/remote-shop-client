@@ -1,22 +1,39 @@
+import FilterSection from '@/app/components/ProductPage/FilterSection';
+import PaginationSection from '@/app/components/ProductPage/PaginationSection';
+import ProductGrid from '@/app/components/ProductPage/ProductGrid';
+import getAllCategories from '@/lib/getAllCategories';
 import getAllProducts from '@/lib/getAllProducts'
 import Link from 'next/link'
 import React from 'react'
 
-export default async function page() {
-  const products = await getAllProducts();
+export default async function page({searchParams}) {
+  const params = await searchParams;
+  // console.log(params);
+  // console.log(params.toString());
+  const page = Number(params.page ?? 1);
+  // console.log("Page",page);
+  const cateogry = params.category ?? "";
+  // console.log("Category", cateogry);
+  const searchName = params.name ?? "";
+  const sort = params.order_by ?? "";
+  const price_gt = Number(params.price_gt ?? 0);
+  const price_lt = Number(params.price_lt ?? Number.MAX_SAFE_INTEGER);
+
+  // const filter = params.filter ?? "";
+  const products = await getAllProducts(`page=${page}&name=${searchName}&category=${cateogry}&price_lt=${price_lt}&price_gt=${price_gt}&order_by=${sort}`);
+  const categories = await getAllCategories();
   // console.log("Products => ", products)
   return (
     <div>
       <h1>This is Product List page</h1>
-      <div className='grid grid-cols-3 gap-8'>
-        {products.map(product => 
-          <Link key={product.id} href={`products/${product.id}`}>
-            <div 
-              className='border-2 rounded-md p-4 bg-gray-50 shadow-xl'>
-                <h4>{product.name}</h4>
-            </div>
-          </Link>
-        )}
+      <div className='my-4'>
+        <FilterSection categories={categories}/>
+      </div>
+      <div>
+        <ProductGrid products={products}/>
+      </div>
+      <div className='my-4 text-center'>
+        <PaginationSection/>
       </div>
     </div>
   )

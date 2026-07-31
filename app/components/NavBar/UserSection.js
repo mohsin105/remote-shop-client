@@ -47,7 +47,12 @@ export default function UserSection() {
                 </button>
             ) : (
                 <div className='flex gap-2'>
-                    <button>Sign Up</button>
+                    <Link href='/signUp'>
+                    
+                        <button>
+                            Sign Up
+                        </button>
+                    </Link>
                     <Link href="/signIn">
                         <button
                             

@@ -19,33 +19,33 @@ export default async function page({params}) {
         <div className='space-y-2'>
           {/* Text Details */}
           <h2 className='text-2xl font-semibold'>
-            {product.name}
+            {product?.name}
           </h2>
           <p className=''>
             Category : 
             <span className=''>
-              {product.category.name}
+              {product?.category?.name}
             </span>
           </p>
           <p className=''>
             Price
             <span className=''>
-              {product.price}
+              {product?.price}
             </span>
           </p>
           <p className=''>
             Stock : 
             <span className=''>
-              {product.stock}
+              {product?.stock}
             </span>
           </p>
           <p className=''>
             <span className=''>
-              {product.description}
+              {product?.description}
             </span>
           </p>
           <Suspense fallback = {<div className=''>Loading...</div>}>
-            <AddToCart stock={product.stock} productId={id}/>
+            <AddToCart stock={product?.stock} productId={id}/>
           </Suspense>
         </div>
       </div>

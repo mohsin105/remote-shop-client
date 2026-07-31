@@ -1,4 +1,5 @@
 import SignUpForm from '@/app/components/SignUpForm'
+import Link from 'next/link'
 import React from 'react'
 
 export default function page() {
@@ -11,7 +12,11 @@ export default function page() {
         <SignUpForm/>
         <div>
           <p>
-            Already Have an Account ? Sign In Here
+            Already Have an Account ? 
+            <Link href='signIn'
+              className='text-blue-600 hover:text-blue-700 hover:font-semibold'>
+              Sign In Here
+            </Link>
           </p>
         </div>
       </div>
