@@ -49,7 +49,11 @@ export default async function RootLayout({ children }) {
             </div>
           </CartProvider>
         </AuthProvider>
-        <Footer/>
+        <div className="bg-slate-300">
+          <div className="w-11/12 mx-auto ">
+            <Footer/>
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -21,40 +21,54 @@ export default function AddToCart({stock, productId}) {
     };
     const onSubmit = async(payload)=>{
         try {
-            console.log(payload);
-            console.log(selectedQuantity);
+            // console.log(payload);
+            // console.log(selectedQuantity);
             const response = await addCartItem({"product_id":productId, "quantity": selectedQuantity});
         } catch (error) {
             console.log(error);
         }
     };
   return (
-    <div>
+    <div className=''>
         <form onSubmit={handleSubmit(onSubmit)} className='space-x-4'>
-            <button 
-                type='button'  //Important
-                onClick={()=>decreaseQuantity()}
-                className='p-2 font-bold text-xl rounded-md bg-rose-400'>
-                -
-            </button>
-            <input 
-                {...register("quantity")}
-                type="number" 
-                value={selectedQuantity}
-                max={stock}
-                min={1}
-                // onChange={()=> setSelectedQuantity(selectedQuantity)}
-                className='p-4 bg-gray-100 rounded-md border-2'/>
-            <button 
-                type='button'  //Important
-                onClick={()=> increaseQuantity()}
-                className='p-2 font-bold text-xl rounded-md bg-green-400'>
-                +
-            </button>
-            <button type='submit' 
-            className='font-semibold text-xl p-4 rounded-lg bg-cyan-500 hover:bg-cyan-600'>
-                Add To Cart
-            </button>
+            <div className='flex items-center space-x-4'>
+
+                <button 
+                    type='button'  //Important
+                    onClick={()=>decreaseQuantity()}
+                    className= 'p-1 px-2 font-bold text-xl rounded-md bg-rose-400'>
+                    -
+                </button>
+                <input 
+                    {...register("quantity")}
+                    type="number" 
+                    value={selectedQuantity}
+                    max={stock}
+                    min={1}
+                    disabled={true}
+                    // onChange={()=> setSelectedQuantity(selectedQuantity)}
+                    className='p-2 text-center w-16 bg-gray-100 rounded-md border-2'/>
+                <button 
+                    type='button'  //Important
+                    onClick={()=> increaseQuantity()}
+                    className='p-1 px-2 font-bold text-xl rounded-md bg-green-400'>
+                    +
+                </button>
+            </div>
+            <div className='my-4'>
+                <button 
+                    type='submit' 
+                    className='font-semibold text-xl p-4 w-full rounded-lg bg-cyan-500 hover:bg-cyan-600'>
+                    Add To Cart
+                </button>
+            </div>
+            <div className='mt-4'>
+                <button 
+                    type='button' 
+                    className='font-semibold text-xl p-4 w-full rounded-lg bg-green-300 hover:bg-green-500'>
+                    Buy Now
+                </button>
+            </div>
         </form>
     </div>
   )
