@@ -29,6 +29,7 @@ export default function authService() {
         const response = await apiFetch("profile");
         console.log("without awaiting and jsonning the response: the raw response: ", response);
         const result = await response.json();
+        console.log("Json awaited response ->", result);
         return {"success":response.ok? true: false , "message":result}
     };
   return {registerUserAPI, loginUserAPI, getCurrentUserAPI};

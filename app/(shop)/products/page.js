@@ -22,7 +22,7 @@ export default async function page({searchParams}) {
   // const filter = params.filter ?? "";
   const products = await getAllProducts(`page=${page}&name=${searchName}&category=${cateogry}&price_lt=${price_lt}&price_gt=${price_gt}&order_by=${sort}`);
   const categories = await getAllCategories();
-  console.log("Products => ", products.items);
+  // console.log("Products => ", products.items);
   return (
     <div>
       <h1 className='text-4xl font-semibold my-6 text-center'>This is Product List page</h1>

@@ -19,13 +19,13 @@ export default function useAuth(initialUser) {
 
     const logInUser = async(payload) =>{
         try {
-            console.log("jsata");
+            // console.log("jsata");
             const response = await loginUserAPI(payload);
-            console.log(response);
+            // console.log(response);
 
             const result = await response.json(); //the actual response payload. 
-            console.log(result.message);
-            console.log(response.status);
+            // console.log(result.message);
+            // console.log(response.status);
             if(response.status === 200)
             {
                 await getCurrentUser();
@@ -41,12 +41,12 @@ export default function useAuth(initialUser) {
     };
 
     const logOutUser = async() =>{
-        console.log("jsata. clicking on log out button");
+        // console.log("jsata. clicking on log out button");
         const response = await apiFetch("logout",{
             method: "POST"
         })
         setUser(null);
-        console.log("Logout Status: ", response.ok);
+        // console.log("Logout Status: ", response.ok);
     }
 
     const getCurrentUser = async() =>{

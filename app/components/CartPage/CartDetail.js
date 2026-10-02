@@ -70,30 +70,34 @@ export default function CartDetail() {
         }
     };
   return (
-    <div className=''>
-        <div>
-            Hello, {user.first_name}, here is your Shopping cart
+    <div className='w-11/12 md:w-2/3 mx-auto bg-amber-50 rounded-md p-4'>
+        <div className='text-2xl font-semibold my-8'>
+            Hello,<span className='font-extrabold'> {user.first_name},</span> here is your Shopping cart
         </div>
-        <div className='grid grid-cols-6 bg-cyan-100 border-2 text-xl font-semibold my-4 py-4'>
+        {/* <div className='grid grid-cols-6 bg-cyan-100 border-2 text-xl font-semibold my-4 py-4'>
             <div>Serial</div>
             <div>Product Name</div>
             <div>Quantity</div>
             <div>Rate</div>
             <div>Price</div>
             <div>Update</div>
+        </div> */}
+        <div className=''>
+            <Suspense fallback = {<div className=''>Loading...</div>}>
+                <CartDetailList 
+                    localCart={localCart}
+                    handleUpdateQuantity={handleUpdateQuantity}
+                    handleRemoveCartItem={handleRemoveCartItem}/>
+                
+            </Suspense>
         </div>
-        <Suspense fallback = {<div className=''>Loading...</div>}>
-            <CartDetailList 
-                localCart={localCart}
-                handleUpdateQuantity={handleUpdateQuantity}
-                handleRemoveCartItem={handleRemoveCartItem}/>
-            
-        </Suspense>
-        <button 
-            onClick={()=> handleCreateOrder()}
-            className='p-4 text-xl font-semibold rounded-md bg-cyan-500 hover:bg-cyan-600 shadow-xl'>
-            Confirm Order
-        </button>
+        <div className='flex justify-end my-4'>
+            <button 
+                onClick={()=> handleCreateOrder()}
+                className=' p-4 text-xl font-semibold rounded-md bg-cyan-500 hover:bg-cyan-600 shadow-xl'>
+                Confirm Order
+            </button>
+        </div>
     </div>
   )
 }
