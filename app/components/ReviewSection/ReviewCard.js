@@ -2,8 +2,9 @@ import React from 'react'
 import RatingStar from '../RatingStar'
 import { RiEdit2Line } from 'react-icons/ri'
 import { MdOutlineDeleteForever } from 'react-icons/md'
+import dayjs from 'dayjs'
 
-export default function ReviewCard() {
+export default function ReviewCard({review}) {
   return (
     <div className='bg-gray-200 p-4 rounded-md space-y-4'>
         <div className='flex justify-between'>
@@ -12,8 +13,12 @@ export default function ReviewCard() {
                 {/* Profile Image Thumbnail */}
                 </div>
                 <div >
-                    <p className='font-semibold'>User Name</p>
-                    <p>3rd August 2026</p>
+                    <p className='font-semibold'>
+                        {review.user.first_name} {review.user.last_name}
+                    </p>
+                    <p>
+                        {dayjs(review.updated_at).format("DD MMM YYYY, hh:mm A")}
+                    </p>
                 </div>
             </div>
             <div className='space-x-2'>
@@ -27,9 +32,9 @@ export default function ReviewCard() {
         </div>
 
         <div className='space-y-2'>
-            <RatingStar/>
+            <RatingStar rating={review.rating}/>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam nulla nisi quis voluptates. Accusantium, fuga? Voluptatum nisi architecto esse, corrupti sed at possimus. Officiis fuga magni iure provident, distinctio dolore cum inventore voluptas labore, quo pariatur voluptatum dolor accusantium?
+                {review.content}
             </p>
         </div>
     </div>

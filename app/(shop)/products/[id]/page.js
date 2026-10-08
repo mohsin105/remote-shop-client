@@ -9,7 +9,7 @@ export default async function page({params}) {
   const {id} = await params;
   // console.log("The object Id, after awaiting the Param and destructuring => ", id);
   const product = await getProductDetails(id);
-  console.log(product);
+  // console.log(product);
   return (
     <div className='bg-gray-100'>
       <h1>This is product Details page</h1>
@@ -17,7 +17,7 @@ export default async function page({params}) {
         <ProductDetailsCard product={product} id={id}/>
       </div>
       <div className='w-3/4 mx-auto'>
-        <ReviewSection/>
+        <ReviewSection productId={id}/>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react'
 import RatingStar from '../RatingStar'
 import ReviewList from './ReviewList'
 
-export default function ReviewSection() {
+export default function ReviewSection({productId}) {
   return (
     <div>
         <h3 className='text-2xl font-semibold mb-4'>Reviews & Ratings : </h3>
@@ -11,8 +11,8 @@ export default function ReviewSection() {
             <RatingStar/>
             <p>28 Reviews</p>
         </div>
-        <div>
-            <ReviewList/>
+        <div className='my-2'>
+            <ReviewList productId={productId}/>
         </div>
     </div>
   )
