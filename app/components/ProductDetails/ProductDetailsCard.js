@@ -1,12 +1,35 @@
 import React, { Suspense } from 'react'
 import RatingStar from '../RatingStar'
 import AddToCart from '../AddToCart'
+import Image from 'next/image'
+import UpdateImage from './UpdateImage'
+import UpdateProductButton from './UpdateProductButton'
 
 export default function ProductDetailsCard({product, id}) {
   return (
     <div className='grid grid-cols-1  bg-white rounded-md p-4  sm:grid-cols-2 gap-4 '>
         <div className='p-2 bg-violet-100 rounded-md'>
           {/* Image Section */}
+          {product.images.length >0 && (
+            <div>
+              {product.images.map((img, indx)=> (
+                <Image
+                  key={indx}
+                  src={img.url}
+                  alt='product-image'
+                  width={400}
+                  height={400}
+                  unoptimized
+                  className='rounded-md'
+                />
+              ))}
+            </div>
+          )}
+          <div>
+            <Suspense fallback={<div className=''>Loading...</div>}>
+              <UpdateImage productId={id}/>
+            </Suspense>
+          </div>
         </div>
         <div className='space-y-2'>
           {/* Text Details */}
@@ -44,6 +67,9 @@ export default function ProductDetailsCard({product, id}) {
           <div>
             <Suspense fallback = {<div className=''>Loading...</div>}>
               <AddToCart stock={product?.stock} productId={id}/>
+            </Suspense>
+            <Suspense fallback={<div className=''>Loading...</div>}>
+              <UpdateProductButton productId={id}/>
             </Suspense>
           </div>
         </div>
